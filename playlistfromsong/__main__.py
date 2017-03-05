@@ -80,9 +80,10 @@ def downloadURL(url):
 
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            ydl.extract_info(url, download=True)
+            return ydl.extract_info(url, download=True)
     except:
         print("Problem downloading " + url)
+    return None
 
 
 def getYoutubeAndRelatedLastFMTracks(lastfmURL):

@@ -2,7 +2,6 @@
 from unittest import mock
 
 import pytest
-from pathlib import Path
 
 PATCH_MODULE = 'playlistfromsong.__main__'
 
@@ -15,12 +14,13 @@ def test_download_url(url):
         m_sp.Popen.return_value = output
         from playlistfromsong import __main__
         # run
-        __main__.downloadURL(url)
+        f = __main__.downloadURL(url)
+
         # test
         if len(url) == 0:
-            return
-        downloadedFile = Path("./Miles Davis - Take It or Leave It-YSa5CO2cu-c.mp3")
-        assert downloadedFile.is_file() is True
+            assert f is None
+        else:
+            assert f['alt_title'] == 'Take It or Leave It'
 
 
 def test_get_youtube_and_related_lastfm_tracks():
